@@ -1,9 +1,16 @@
 package main
 
-import "gocantoserver/api"
+import (
+	"fmt"
+	"gocantoserver/database/connection"
+)
 
 func main() {
-	router := api.MakeRouter()
+	con, err := connection.MakeConnection()
 
-	router.Start()
+	if err != nil {
+		fmt.Println("Connection error")
+	}
+
+	fmt.Println(con)
 }
