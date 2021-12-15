@@ -2,7 +2,7 @@ package connection
 
 import (
 	"fmt"
-	"github.com/voyago/env/handler"
+	"github.com/voyago/environment"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -22,7 +22,7 @@ func driver() (gorm.Dialector, *gorm.Config) {
 }
 
 func dns() string {
-	env, _ := handler.Make("server")
+	env, _ := environment.Make("server")
 
 	return fmt.Sprintf("%s:%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local", "root", "root", env.Get("DATABASE_HOST"), 3306, "blog")
 }
