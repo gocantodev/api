@@ -10,7 +10,7 @@ type Connection struct {
 }
 
 func MakeConnection() (Connection, error) {
-	db, err := gorm.Open(GetDriver())
+	db, err := gorm.Open(driver())
 
 	if err != nil {
 		return Connection{}, fmt.Errorf("The database connection failed: %v\n", err)

@@ -6,11 +6,11 @@ import (
 	"gorm.io/gorm"
 )
 
-func GetDriver() (gorm.Dialector, *gorm.Config) {
+func driver() (gorm.Dialector, *gorm.Config) {
 	var datetimePrecision = 2
 
 	return mysql.New(mysql.Config{
-		DSN:                       GetDns(),           //"root:gorm@tcp(localhost:3306)/gorm?charset=utf8&parseTime=True&loc=Local", // data source name, refer https://github.com/go-sql-driver/mysql#dsn-data-source-name
+		DSN:                       dns(),              //"root:gorm@tcp(localhost:3306)/gorm?charset=utf8&parseTime=True&loc=Local", // data source name, refer https://github.com/go-sql-driver/mysql#dsn-data-source-name
 		DefaultStringSize:         256,                // add default size for string fields, by default, will use db type `longtext` for fields without size, not a primary key, no index defined and don't have default values
 		DisableDatetimePrecision:  false,              // disable datetime precision support, which not supported before MySQL 5.6
 		DefaultDatetimePrecision:  &datetimePrecision, // default datetime precision
@@ -20,6 +20,6 @@ func GetDriver() (gorm.Dialector, *gorm.Config) {
 	}), &gorm.Config{}
 }
 
-func GetDns() string {
+func dns() string {
 	return fmt.Sprintf("%s:%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local", "root", "root", "localhost", 3306, "blog")
 }
