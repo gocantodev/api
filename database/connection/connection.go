@@ -8,12 +8,15 @@ import (
 
 type Connection struct {
 	db     *gorm.DB
-	driver *gorm.Dialector
+	driver gorm.Dialector
+	config gorm.Config
 }
 
 func Make(env environment.Env) (Connection, error) {
+	config := gorm.Config{}
 	driver := MakeDriver(env)
-	db, err := gorm.Open(driver.dialector, &gorm.Config{})
+
+	db, err := gorm.Open(driver.dialector, &config)
 
 	if err != nil {
 		return Connection{}, fmt.Errorf("The database [%s] connection failed: %v\n", env.Get("DATABASE_NAME"), err)
@@ -21,7 +24,8 @@ func Make(env environment.Env) (Connection, error) {
 
 	conn := Connection{
 		db:     db,
-		driver: &driver.dialector,
+		config: config,
+		driver: driver.dialector,
 	}
 
 	return conn, nil
