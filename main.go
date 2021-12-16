@@ -2,15 +2,23 @@ package main
 
 import (
 	"fmt"
-	"gocantoserver/database/connection"
+	"github.com/voyago/environment"
+	kernel "gocantoserver/app"
 )
 
 func main() {
-	con, err := connection.MakeConnection()
+	env, err := environment.Make("server")
 
 	if err != nil {
-		fmt.Println("Connection error")
+		panic("The given env [server/.env] is invalid.")
 	}
 
-	fmt.Println(con)
+	app, err := kernel.MakeApp(env)
+
+	if err != nil {
+		message, _ := fmt.Printf("There was an issue creating the App: %v", err)
+		panic(message)
+	}
+
+	app.Start()
 }
