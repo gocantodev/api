@@ -30,3 +30,7 @@ func Make(env environment.Env) (Connection, error) {
 
 	return conn, nil
 }
+
+func (receiver Connection) GetDB() *gorm.DB {
+	return receiver.db
+}
