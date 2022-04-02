@@ -1,4 +1,4 @@
-package cli
+package command
 
 import (
 	"errors"
@@ -23,15 +23,11 @@ func Parse(args []string) (Input, error) {
 
 	return Input{
 		version:  "0.0.1",
-		commands: []string{"new"},
+		commands: []string{FRESH},
 		args:     args,
 		err:      nil,
 		env:      env,
 	}, nil
-}
-
-func (i Input) ShouldRunMigrations() bool {
-	return len(i.args) == 1
 }
 
 func (i Input) GetFileName() string {
@@ -39,19 +35,19 @@ func (i Input) GetFileName() string {
 }
 
 func (i *Input) ShouldReject() bool {
-	if len(i.args) == 2 {
-		i.err = errors.New(fmt.Sprintf("Expected [3] args, but only [2] were given."))
+	if len(i.args) == 1 {
+		i.err = errors.New(fmt.Sprintf("Expected [2] args, but only [1] were given."))
 
 		return true
 	}
 
-	if len(i.args) > 3 {
+	if len(i.args) > 2 {
 		i.err = errors.New(fmt.Sprintf("Expected 3 args, but [%v] were given.", len(i.args)))
 
 		return true
 	}
 
-	if len(i.args) == 3 && i.isCommandNotSupported(i.args[1]) {
+	if len(i.args) == 2 && i.isCommandNotSupported(i.args[1]) {
 		i.err = errors.New(fmt.Sprintf("The given command [%v] is invalid. ", i.args[1]))
 
 		return true
@@ -65,7 +61,7 @@ func (i Input) GetError() error {
 }
 
 func (i Input) GetValue() string {
-	return i.args[2]
+	return i.args[1]
 }
 
 func (i Input) GetEnv() environment.Env {
