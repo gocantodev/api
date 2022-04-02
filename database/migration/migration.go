@@ -11,7 +11,7 @@ func main() {
 	input, err := cli.Parse(os.Args)
 
 	if err != nil {
-		fmt.Println(fmt.Sprintf("The was an error [%v] while reading the command.", err))
+		fmt.Println(fmt.Sprintf("There was an error [%v] while reading the command.", err))
 
 		return
 	}
