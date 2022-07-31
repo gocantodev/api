@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS posts;
 
 CREATE TABLE IF NOT EXISTS users (
     id INT NOT NULL,
+
     uuid varchar(32) unique NOT NULL,
     first_name varchar(250) NOT NULL,
     last_name varchar(250) NOT NULL,
