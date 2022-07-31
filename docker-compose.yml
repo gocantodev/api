@@ -1,5 +1,8 @@
 version: "3.9"
 
+networks:
+    new:
+
 services:
     db:
         image: "postgres:${POSTGRES_VERSION}"
@@ -12,6 +15,25 @@ services:
             POSTGRES_USER: ${POSTGRES_USER}
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
             POSTGRES_DB: ${POSTGRES_DATABASE}
+        networks:
+            new:
+                aliases:
+                    - database
+        logging:
+            options:
+                max-size: 10m
+                max-file: "3"
         volumes:
             - ./database/data:/var/lib/postgresql/data\
-            - ./database/migration/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+    migrate:
+        image: "migrate/migrate"
+        networks:
+            - new
+        volumes:
+            - .:/database/migrations
+        command: [ "-path", "./database/migrations", "-database",  "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DATABASE}?sslmode=disable", "up", "3" ]
+        links:
+            - db
+        depends_on:
+            - db
