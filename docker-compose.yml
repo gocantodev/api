@@ -26,7 +26,7 @@ services:
         volumes:
             - ./database/data:/var/lib/postgresql/data\
         healthcheck:
-            test: [ "CMD-SHELL", "pg_isready" ]
+            test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_PASSWORD}
             interval: 10s
             timeout: 5s
             retries: 5
@@ -37,7 +37,7 @@ services:
             - new
         volumes:
             - .:/database/migrations
-        command: [ "-path", "./database/migrations", "-database",  "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DATABASE}?sslmode=disable", "up", "3" ]
+        command: ["-path", "/database/migrations", "-database",  "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DATABASE}?sslmode=disable", "up", "3" ]
         links:
             - db
         depends_on:
