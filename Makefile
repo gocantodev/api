@@ -1,5 +1,11 @@
 .PHONY: server
 
+include .env
+
+test:
+	echo ${POSTGRES_VERSION}
+
+
 serve-app:
 	cp .env.example .env
 	docker-compose up -d
