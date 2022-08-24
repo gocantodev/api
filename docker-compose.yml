@@ -1,7 +1,10 @@
 version: "3.9"
 
 networks:
-    new:
+    host:
+
+volumes:
+    database:
 
 services:
     db:
@@ -16,30 +19,10 @@ services:
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
             POSTGRES_DB: ${POSTGRES_DATABASE}
         networks:
-            new:
-                aliases:
-                    - database
+            - host
         logging:
             options:
                 max-size: 10m
                 max-file: "3"
         volumes:
-            - ./database/data:/var/lib/postgresql/data\
-        healthcheck:
-            test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_PASSWORD}
-            interval: 10s
-            timeout: 5s
-            retries: 5
-
-    migrate:
-        image: "migrate/migrate"
-        networks:
-            - new
-        volumes:
-            - .:/database/migrations
-        command: ["-path", "/database/migrations", "-database",  "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DATABASE}?sslmode=disable", "up", "3" ]
-        links:
-            - db
-        depends_on:
-            db:
-                condition: service_healthy
+            - ./database/data:/var/lib/postgresql/data
