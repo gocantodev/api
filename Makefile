@@ -2,7 +2,7 @@
 
 include .env
 
-API_NETWORK = api
+API_NETWORK = gocanto
 CURRENT_DIR = $(shell pwd)
 DB_MIGRATIONS_DIR = database/migrations
 
@@ -17,6 +17,7 @@ prune:
 	docker container prune -f
 	docker image prune -f
 	docker volume prune -f
+	docker network prune -f
 
 prune\:data:
 	@rm -rf $(CURRENT_DIR)/database/data/*
