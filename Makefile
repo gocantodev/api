@@ -23,7 +23,14 @@ prune\:data:
 	@rm -rf $(CURRENT_DIR)/database/data/*
 
 migrate\:up:
-	docker run -v $(CURRENT_DIR)/$(DB_MIGRATIONS_DIR):/$(DB_MIGRATIONS_DIR) --network ${API_NETWORK} migrate/migrate -path=/$(DB_MIGRATIONS_DIR)/ -database ${POSTGRES_URL} up 1
+	$(call migrate) up 1
 
 migrate\:down:
-	docker run -v $(CURRENT_DIR)/$(DB_MIGRATIONS_DIR):/$(DB_MIGRATIONS_DIR) --network ${API_NETWORK} migrate/migrate -path=/$(DB_MIGRATIONS_DIR)/ -database ${POSTGRES_URL} down 1
+	$(call migrate) down 1
+
+define migrate
+	# param 1 is the method to be called.
+	# param 2 is the number of batches to excecute.
+
+	docker run -v $(CURRENT_DIR)/$(DB_MIGRATIONS_DIR):/$(DB_MIGRATIONS_DIR) --network ${API_NETWORK} migrate/migrate -path=/$(DB_MIGRATIONS_DIR)/ -database ${POSTGRES_URL} $(1) $(2)
+endef
