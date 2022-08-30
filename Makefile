@@ -5,7 +5,7 @@ include .env
 CURRENT_DIR = $(shell pwd)
 DB_MIGRATIONS_DIR = database/migrations
 
-clean:
+prune:
 	docker container prune -f
 	docker image prune -f
 	docker volume prune -f
