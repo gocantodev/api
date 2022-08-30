@@ -1,6 +1,6 @@
 ### About
 
-Hi there, I'm Gus! thank you for checking in. This repository contains the API that powers my personal website blog.
+Hi there, I'm Gus! thank you for checking in. This repository contains the API that powers my personal blog.
 
 ## License
 
