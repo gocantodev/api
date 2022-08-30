@@ -1,20 +1,15 @@
-.PHONY: server
+.PHONY: gocanto\:server
 
 include .env
+
+CURRENT_DIR = $(shell pwd)
+DB_MIGRATIONS_DIR = database/migrations
 
 test:
 	echo ${POSTGRES_VERSION}
 
+migrate\:up:
+	docker run -v $(CURRENT_DIR)/$(DB_MIGRATIONS_DIR):/$(DB_MIGRATIONS_DIR) --network host migrate/migrate -path=/$(DB_MIGRATIONS_DIR)/ -database ${POSTGRES_URL} up 1
 
-serve-app:
-	cp .env.example .env
-	docker-compose up -d
-
-down:
-	docker-compose down
-
-migrate-up:
-	docker run -v /Users/gus/Sites/server/database/migrations:/database/migrations --network host migrate/migrate -path=/database/migrations/ -database postgres://root:root@localhost:5432/gocanto?sslmode=disable up 1
-
-migrate-down:
-	docker run -v /Users/gus/Sites/server/database/migrations:/database/migrations --network host migrate/migrate -path=/database/migrations/ -database postgres://root:root@localhost:5432/gocanto?sslmode=disable down 1
+migrate\:down:
+	docker run -v $(CURRENT_DIR)/$(DB_MIGRATIONS_DIR):/$(DB_MIGRATIONS_DIR) --network host migrate/migrate -path=/$(DB_MIGRATIONS_DIR)/ -database ${POSTGRES_URL} down 1
