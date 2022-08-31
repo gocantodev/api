@@ -6,14 +6,8 @@ DB_NETWORK = gocanto
 APP_PATH = $(shell pwd)
 DB_MIGRATIONS_PATH = database/migrations
 
-
-api\:build:
-	docker build -f ./app/Dockerfile -t gocanto-server .
-
-api\:up:
-	docker run -p 8080:8000 --env-file ./.env  gocanto-server
-
-api\:provision: api\:build api\:up
+api\:run:
+	docker compose run server
 
 db\:up:
 	docker compose up --wait
