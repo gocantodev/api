@@ -12,7 +12,9 @@ api\:build:
 api\:run:
 	docker compose run server
 
-api\:fresh: api\:build api\:run
+api\:fresh:
+	make api\:build
+	make api\:run
 
 db\:up:
 	docker compose up --wait

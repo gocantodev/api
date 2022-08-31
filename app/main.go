@@ -1,29 +1,25 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
+	"github.com/gocantodev/server/app/database"
 	_ "github.com/lib/pq"
 	"os"
 )
 
 func main() {
-	// open database
-	db, err := sql.Open("postgres", os.Getenv("POSTGRES_URL"))
-	CheckError(err)
+	connection, err := database.Make(os.Getenv("POSTGRES_URL"))
 
-	// close database
-	defer db.Close()
-
-	// check db
-	err = db.Ping()
-	CheckError(err)
-
-	fmt.Println("Connected!")
-}
-
-func CheckError(err error) {
 	if err != nil {
-		panic(err)
+		fmt.Println("There was an issue connecting to the DB: ", err)
+
+		return
+	}
+
+	defer connection.Close()
+
+	if err := connection.Ping(); err != nil {
+		fmt.Println("There was an issue pinging to the DB: ", err)
+		return
 	}
 }
