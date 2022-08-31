@@ -6,8 +6,13 @@ DB_NETWORK = gocanto
 APP_PATH = $(shell pwd)
 DB_MIGRATIONS_PATH = database/migrations
 
+api\:build:
+	docker compose build server
+
 api\:run:
 	docker compose run server
+
+api\:fresh: api\:build api\:run
 
 db\:up:
 	docker compose up --wait
