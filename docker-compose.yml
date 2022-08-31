@@ -9,6 +9,24 @@ volumes:
     database:
 
 services:
+    server:
+        image: "golang:latest"
+        restart: "always"
+        env_file:
+            - .env
+        ports:
+            - "127.0.0.1:8080:8080"
+        networks:
+            - gocanto
+        build:
+            context: .
+            dockerfile: ./app/Dockerfile
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10M"
+                max-file: "20"
+
     db:
         image: "postgres:${POSTGRES_VERSION}"
         restart: always
