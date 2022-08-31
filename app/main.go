@@ -1,7 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
-	fmt.Println("here")
+	fmt.Println("App: ", os.Getenv("APP_NAME"))
 }
