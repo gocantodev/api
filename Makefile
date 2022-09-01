@@ -29,7 +29,9 @@ db\:prune:
 	docker volume prune -f
 	docker network prune -f
 
-db\:reset: db\:prune
+db\:reset:
+	make db\:prune
+	make db\:up
 	@rm -rf $(APP_PATH)/database/data/*
 
 db\:migrate\:up:

@@ -1,5 +1,4 @@
-CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
+id SERIAL PRIMARY KEY,
 
     uuid varchar(32) unique NOT NULL,
     first_name varchar(250) NOT NULL,
@@ -9,4 +8,8 @@ CREATE TABLE IF NOT EXISTS users (
     verified_at TIMESTAMP DEFAULT NULL,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
-);
+
+INSERT INTO users
+    (id, uuid, first_name, last_name, email)
+VALUES
+    (nextval('books_sequence'), 'The Hobbit', 'Tolkien');
