@@ -1,15 +1,5 @@
-id SERIAL PRIMARY KEY,
-
-    uuid varchar(32) unique NOT NULL,
-    first_name varchar(250) NOT NULL,
-    last_name varchar(250) NOT NULL,
-    email varchar(250) unique NOT NULL,
-    password varchar(100) NOT NULL,
-    verified_at TIMESTAMP DEFAULT NULL,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP
-
-INSERT INTO users
-    (id, uuid, first_name, last_name, email)
+INSERT INTO users (uuid,first_name,last_name,email,"password",verified_at,created_at,updated_at,deleted_at)
 VALUES
-    (nextval('books_sequence'), 'The Hobbit', 'Tolkien');
+    ('7d36e0d0-b579-48f2-878a-e4cb6534f15b','Gus','Ocanto','gus@gocanto.dev','$2a$10$SGwyFRu5eQ5W55shPbEd1OIT9ApmcgRO30nu6gTzdJgBT5qpcCV7C',NULL,'2022-09-01 03:46:38','2022-09-01 03:46:38',NULL),
+    ('3d75a86b-de48-499e-bdfc-4973a16c46cb','Li','Ocanto','li@gocanto.dev','$2a$10$SGwyFRu5eQ5W55shPbEd1OIT9ApmcgRO30nu6gTzdJgBT5qpcCV7C',NULL,'2022-09-01 03:46:38','2022-09-01 03:46:38',NULL),
+    ('ba97e0fd-101c-4b21-a69f-f9eca757444b','Isla','Ocanto','isla@gocanto.dev','$2a$10$SGwyFRu5eQ5W55shPbEd1OIT9ApmcgRO30nu6gTzdJgBT5qpcCV7C',NULL,'2022-09-01 03:46:38','2022-09-01 03:46:38',NULL);

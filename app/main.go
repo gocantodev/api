@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"github.com/gocantodev/server/app/support"
+	"github.com/google/uuid"
 	_ "github.com/lib/pq"
+	"time"
 )
 
 func main() {
@@ -16,6 +18,9 @@ func main() {
 		fmt.Println("pass error", err)
 		return
 	}
+
+	id := uuid.New().String()
+	fmt.Println(id, len(id), time.Now().UTC().String())
 
 	fmt.Println("seed: ", seed)
 	fmt.Println("seed: ", pass.GetHash())
