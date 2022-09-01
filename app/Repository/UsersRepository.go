@@ -21,17 +21,15 @@ func (receiver UsersRepository) FindByUuid(uuid string) (Entity.User, error) {
 
 	sql := `SELECT * FROM users WHERE uuid = $1`
 
-	db := receiver.connection.GetDB()
+	result := receiver.connection.GetDB().
+		QueryRow(sql, uuid).
+		Scan(
+			&user.Id, &user.Uuid, &user.FirstName, &user.LastName, &user.Email, &user.Password,
+			&user.VerifiedAt, &user.CreatedAt, &user.UpdatedAt, &user.DeletedAt,
+		)
 
-	row := db.QueryRow(sql, uuid)
-
-	err := row.Scan(
-		&user.Id, &user.Uuid, &user.FirstName, &user.LastName, &user.Email, &user.Password,
-		&user.VerifiedAt, &user.CreatedAt, &user.UpdatedAt, &user.DeletedAt,
-	)
-
-	if err != nil {
-		return Entity.User{}, err
+	if result != nil {
+		return Entity.User{}, result
 	}
 
 	return user, nil
