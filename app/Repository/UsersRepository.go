@@ -6,15 +6,33 @@ import (
 )
 
 type UsersRepository struct {
-	db *Database.Connection
+	connection *Database.Connection
 }
 
-func MakeUsersRepository(db *Database.Connection) UsersRepository {
+func MakeUsersRepository(connection *Database.Connection) UsersRepository {
 	return UsersRepository{
-		db: db,
+		connection: connection,
 	}
 }
 
-func (receiver UsersRepository) FindByUuid() Entity.User {
-	return Entity.User{}
+func (receiver UsersRepository) FindByUuid(uuid string) (Entity.User, error) {
+
+	user := Entity.User{}
+
+	sql := `SELECT * FROM users WHERE uuid = $1`
+
+	db := receiver.connection.GetDB()
+
+	row := db.QueryRow(sql, uuid)
+
+	err := row.Scan(
+		&user.Id, &user.Uuid, &user.FirstName, &user.LastName, &user.Email, &user.Password,
+		&user.VerifiedAt, &user.CreatedAt, &user.UpdatedAt, &user.DeletedAt,
+	)
+
+	if err != nil {
+		return Entity.User{}, err
+	}
+
+	return user, nil
 }

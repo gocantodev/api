@@ -2,39 +2,54 @@ package main
 
 import (
 	"fmt"
-	"github.com/gocantodev/server/app/Entity"
-	"github.com/google/uuid"
+	"github.com/gocantodev/server/app/Database"
+	"github.com/gocantodev/server/app/Repository"
 	_ "github.com/lib/pq"
-	"time"
+	"os"
 )
 
 func main() {
-	seed := "secret"
+	//seed := "secret"
 	//result := "$2a$14$ajq8Q7fbtFRQvXpdCq7Jcuy.Rx1h/L4J60Otx.gyNLbAYctGMJ9tK"
 
-	pass, err := Entity.MakePassword(seed)
+	//pass, err := Entity.MakePassword(seed)
+
+	//if err != nil {
+	//	fmt.Println("pass error", err)
+	//	return
+	//}
+
+	//id := uuid.New().String()
+	//fmt.Println(id, len(id), time.Now().UTC().String())
+
+	//fmt.Println("seed: ", seed)
+	//fmt.Println("seed: ", pass.GetHash())
+	//fmt.Println("Valid? ", pass.Is(seed))
+	//fmt.Println("Length: ", len(pass.GetHash()))
+	//
+	//
+	connection, err := Database.Make(os.Getenv("POSTGRES_URL"))
 
 	if err != nil {
-		fmt.Println("pass error", err)
+		fmt.Println("There was an issue connecting to the DB: ", err)
+
 		return
 	}
 
-	id := uuid.New().String()
-	fmt.Println(id, len(id), time.Now().UTC().String())
+	repo := Repository.MakeUsersRepository(&connection)
 
-	fmt.Println("seed: ", seed)
-	fmt.Println("seed: ", pass.GetHash())
-	fmt.Println("Valid? ", pass.Is(seed))
-	fmt.Println("Length: ", len(pass.GetHash()))
+	user, err := repo.FindByUuid("7d36e0d0-b579-48f2-878a-e4cb6534f15b")
+
+	if err != nil {
+		fmt.Println("There was an issue querying the DB: ", err)
+
+		return
+	}
+
+	fmt.Println("user:", user)
+
 	//
-	//
-	//connection, err := Database.Make(os.Getenv("POSTGRES_URL"))
-	//
-	//if err != nil {
-	//	fmt.Println("There was an issue connecting to the DB: ", err)
-	//
-	//	return
-	//}
+
 	//
 	//defer connection.Close()
 	//

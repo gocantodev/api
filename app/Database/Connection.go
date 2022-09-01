@@ -40,3 +40,7 @@ func (receiver Connection) Ping() error {
 
 	return nil
 }
+
+func (receiver Connection) GetDB() *sql.DB {
+	return receiver.db
+}
