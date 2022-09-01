@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/gocantodev/server/app/support"
+	"github.com/gocantodev/server/app/Entity"
 	"github.com/google/uuid"
 	_ "github.com/lib/pq"
 	"time"
@@ -12,7 +12,7 @@ func main() {
 	seed := "secret"
 	//result := "$2a$14$ajq8Q7fbtFRQvXpdCq7Jcuy.Rx1h/L4J60Otx.gyNLbAYctGMJ9tK"
 
-	pass, err := support.MakePassword(seed)
+	pass, err := Entity.MakePassword(seed)
 
 	if err != nil {
 		fmt.Println("pass error", err)
@@ -28,7 +28,7 @@ func main() {
 	fmt.Println("Length: ", len(pass.GetHash()))
 	//
 	//
-	//connection, err := database.Make(os.Getenv("POSTGRES_URL"))
+	//connection, err := Database.Make(os.Getenv("POSTGRES_URL"))
 	//
 	//if err != nil {
 	//	fmt.Println("There was an issue connecting to the DB: ", err)

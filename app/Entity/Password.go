@@ -1,4 +1,4 @@
-package support
+package Entity
 
 import "golang.org/x/crypto/bcrypt"
 
