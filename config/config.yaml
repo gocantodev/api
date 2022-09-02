@@ -1,0 +1,14 @@
+app:
+    name: gocanto
+log:
+    level: LOG_LEVEL
+database:
+    image_version: DB_IMAGE_VERSION
+    name: DB_NAME
+    user: DB_USER
+    password: DB_PASSWORD
+    host: DB_HOST
+    url: DB_URL
+    max_lifetime: 7200
+    max_open_cons: 150
+    max_idle_cons: 50
