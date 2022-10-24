@@ -1,12 +1,12 @@
 app:
     name: gocanto
-log:
-    level: LOG_LEVEL
+logs:
+    level: "log-level"
 database:
-    image_version: DB_IMAGE_VERSION
+    image_version: "14-alpine"
     name: DB_NAME
     user: DB_USER
-    password: DB_PASSWORD
+    password: DB_PASS
     host: DB_HOST
     url: DB_URL
     max_lifetime: 7200
