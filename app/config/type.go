@@ -3,7 +3,7 @@ package config
 type DB struct {
 	ImageVersion string `mapstructure:"image_version"`
 	Version      string
-	Name         string `mapstructure:"name"`
+	Name         string
 	User         string
 	Password     string
 	Host         string
@@ -14,19 +14,15 @@ type DB struct {
 }
 
 type App struct {
-	Name string
-}
-
-type Logs struct {
-	Level string
+	Env      string
+	Name     string
+	LogLevel string `mapstructure:"log_level"`
 }
 
 type Configuration struct {
-	FilePath File
-	EnvPath  File
-	App      App  `mapstructure:"app"`
-	DB       DB   `mapstructure:"database"`
-	Logs     Logs `mapstructure:"logs"`
+	Source File
+	App    App `mapstructure:"app"`
+	DB     DB  `mapstructure:"database"`
 }
 
 type File struct {

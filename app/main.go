@@ -17,7 +17,7 @@ func main() {
 		return
 	}
 
-	fmt.Println("main: ", config.DB)
+	fmt.Println("main: ", config)
 
 	//env.Load()
 

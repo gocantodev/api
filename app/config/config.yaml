@@ -1,7 +1,8 @@
 app:
     name: gocanto
-logs:
-    level: "log-level"
+    env: APP_ENV
+    log_level: APP_LOG_LEVEL
+
 database:
     image_version: "14-alpine"
     name: DB_NAME

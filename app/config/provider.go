@@ -11,7 +11,7 @@ func Make(source string) (Configuration, error) {
 	if file, err := filepath.Abs(source); err != nil {
 		return target, err
 	} else {
-		target.FilePath = File{path: file, name: "config", extension: "yaml"}
+		target.Source = File{path: file, name: "config", extension: "yaml"}
 	}
 
 	if err := target.mapValues(); err != nil {
@@ -22,9 +22,9 @@ func Make(source string) (Configuration, error) {
 }
 
 func (current *Configuration) mapValues() error {
-	viper.AddConfigPath(current.FilePath.path)
-	viper.SetConfigName(current.FilePath.name)
-	viper.SetConfigType(current.FilePath.extension)
+	viper.AddConfigPath(current.Source.path)
+	viper.SetConfigName(current.Source.name)
+	viper.SetConfigType(current.Source.extension)
 
 	if err := viper.ReadInConfig(); err != nil {
 		return err
