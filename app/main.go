@@ -10,14 +10,16 @@ import (
 func main() {
 	log.SetFormatter(&log.JSONFormatter{})
 
-	config, err := configuration.Make("./config")
+	config, err := configuration.Make("./app/config")
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	fmt.Println("main: ", config)
+	fmt.Println("app: ", config.App.ToJson())
+	//fmt.Println("env: ", os.Getenv(config.App.GetLogLevel()))
+	//fmt.Println("log level: ", os.Getenv(config.App.GetLogLevel()))
 
 	//env.Load()
 

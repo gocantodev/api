@@ -20,7 +20,7 @@ services:
             - gocanto
         build:
             context: .
-            dockerfile: ./app/Dockerfile
+            dockerfile: Dockerfile
         logging:
             driver: "json-file"
             options:
@@ -28,7 +28,7 @@ services:
                 max-file: "20"
 
     db:
-        image: "postgres:${POSTGRES_VERSION}"
+        image: "postgres:${POSTGRES_DOCKER_VERSION}"
         restart: always
         env_file:
             - .env
