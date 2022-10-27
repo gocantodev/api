@@ -4,8 +4,8 @@ LABEL mainteiner="Gus <otnacog@gmail.com>"
 
 WORKDIR /app
 
-COPY ../go.mod .
-COPY ../go.sum .
+COPY go.mod .
+COPY go.sum .
 
 RUN go mod download
 
