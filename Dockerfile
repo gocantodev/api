@@ -11,7 +11,7 @@ RUN go mod download
 
 COPY .. .
 
-ENV PORT 8080
+EXPOSE 3000
 
 RUN cd app && go build
 
