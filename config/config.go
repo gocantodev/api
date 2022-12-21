@@ -8,17 +8,17 @@ import (
 )
 
 type App struct {
-	Env      string
-	Name     string
-	LogLevel string
+	Env      string `yaml:"env"`
+	Name     string `yaml:"name"`
+	LogLevel string `yaml:"log_level"`
 }
 
 type Config struct {
-	App App
+	App App `yaml:"app"`
 }
 
-func New() (*App, error) {
-	app := &App{}
+func New() (*Config, error) {
+	config := &Config{}
 	dir, err := os.Getwd()
 
 	if err != nil {
@@ -27,17 +27,17 @@ func New() (*App, error) {
 
 	fmt.Println(dir)
 
-	err = cleanenv.ReadConfig(dir+"/config.yml", app)
+	err = cleanenv.ReadConfig(dir+"/config.yml", config)
 
 	if err != nil {
 		return nil, fmt.Errorf("config error: %w", err)
 	}
 
-	err = cleanenv.ReadEnv(app)
+	err = cleanenv.ReadEnv(config)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return app, nil
+	return config, nil
 }

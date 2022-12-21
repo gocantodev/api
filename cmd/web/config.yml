@@ -1,4 +1,4 @@
 app:
-    name: APP_NAME
+    name: "Gus's Website API"
     env: APP_ENV
     log_level: APP_LOG_LEVEL
