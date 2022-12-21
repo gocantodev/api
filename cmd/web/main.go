@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	configuration, err := config.New()
+	configuration, err := config.Make()
 
 	if err != nil {
 		fmt.Println("error: %w", err)
