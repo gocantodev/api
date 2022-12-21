@@ -1,0 +1,4 @@
+app:
+    name: APP_NAME
+    env: APP_ENV
+    log_level: APP_LOG_LEVEL
