@@ -1,23 +1,23 @@
-package Repository
+package repository
 
 import (
-	"github.com/gocantodev/server/app/Database"
-	"github.com/gocantodev/server/app/Entity"
+	"github.com/gocantodev/server/app/database"
+	"github.com/gocantodev/server/app/entity"
 )
 
 type UsersRepository struct {
-	connection *Database.Connection
+	connection *database.Connection
 }
 
-func MakeUsersRepository(connection *Database.Connection) UsersRepository {
+func MakeUsersRepository(connection *database.Connection) UsersRepository {
 	return UsersRepository{
 		connection: connection,
 	}
 }
 
-func (receiver UsersRepository) FindByUuid(uuid string) (Entity.User, error) {
+func (receiver UsersRepository) FindByUuid(uuid string) (entity.User, error) {
 
-	user := Entity.User{}
+	user := entity.User{}
 
 	sql := `SELECT * FROM users WHERE uuid = $1`
 
@@ -29,7 +29,7 @@ func (receiver UsersRepository) FindByUuid(uuid string) (Entity.User, error) {
 		)
 
 	if result != nil {
-		return Entity.User{}, result
+		return entity.User{}, result
 	}
 
 	return user, nil

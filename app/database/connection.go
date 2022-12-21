@@ -1,4 +1,4 @@
-package Database
+package database
 
 import (
 	"database/sql"
@@ -31,7 +31,7 @@ func (receiver *Connection) Close() error {
 	return nil
 }
 
-func (receiver Connection) Ping() error {
+func (receiver *Connection) Ping() error {
 	if err := receiver.db.Ping(); err != nil {
 		return err
 	}
@@ -41,6 +41,6 @@ func (receiver Connection) Ping() error {
 	return nil
 }
 
-func (receiver Connection) GetDB() *sql.DB {
+func (receiver *Connection) GetDB() *sql.DB {
 	return receiver.db
 }
