@@ -6,9 +6,9 @@ DB_NETWORK = gocanto
 APP_PATH = $(shell pwd)
 DB_MIGRATIONS_PATH = database/migrations
 
-run-web:
-	cd cmd/web && go mod tidy && go mod download && \
-	CGO_ENABLED=0 go run -tags web github.com/gocantodev/server/cmd/web
+run-api:
+	cd cmd/api && go mod tidy && go mod download && \
+	CGO_ENABLED=0 go run -tags web github.com/gocantodev/server/cmd/api
 
 api\:build:
 	docker compose build server
