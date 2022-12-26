@@ -11,22 +11,22 @@ run\:api:
 	CGO_ENABLED=0 go run -tags api github.com/gocantodev/server/cmd/api
 
 api\:build:
-	docker compose build server
+	docker compose -f docker-compose.yml build
 
 api\:up:
-	docker compose up server
+	docker compose -f docker-compose.yml up
 
 api\:fresh:
 	make api\:build
 	make api\:up
 
-db\:up:
+api\:up:
 	docker compose up --wait
 
-db\:down:
+api\:down:
 	docker compose down
 
-db\:prune:
+api\:prune:
 	docker compose down --remove-orphans
 	docker container prune -f
 	docker image prune -f
@@ -34,8 +34,8 @@ db\:prune:
 	docker network prune -f
 
 db\:reset:
-	make db\:prune
-	make db\:up
+	make api\:prune
+	make api\:up
 	@rm -rf $(APP_PATH)/database/data/*
 
 db\:migrate\:up:

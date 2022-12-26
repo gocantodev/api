@@ -2,32 +2,14 @@ version: "3.9"
 
 networks:
     gocanto:
-        name: "gocanto"
-        driver: "bridge"
+        name: gocanto
+        driver: bridge
 
 volumes:
     database:
 
 services:
-    server:
-        image: "golang:latest"
-        restart: "always"
-        env_file:
-            - .env
-        ports:
-            - "3000:3000"
-        networks:
-            - gocanto
-        build:
-            context: .
-            dockerfile: Dockerfile
-        logging:
-            driver: "json-file"
-            options:
-                max-size: "10M"
-                max-file: "20"
-
-    db:
+    postgres:
         image: "postgres:${POSTGRES_DOCKER_VERSION}"
         restart: always
         env_file:
@@ -51,4 +33,27 @@ services:
             test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
             interval: 5s
             timeout: 5s
-            retries: 5
+            retries: 20
+            start_period: 10s
+
+    api:
+        image: gocanto-api
+        restart: "always"
+        build:
+            context: .
+            dockerfile: ./docker/Dockerfile-api
+        ports:
+            - "3000:3000"
+        env_file:
+            - .env
+        depends_on:
+            postgres:
+                condition: service_healthy
+        networks:
+            - gocanto
+        logging:
+            driver: "json-file"
+            options:
+                max-file: 20
+                max-size: 10M
+
