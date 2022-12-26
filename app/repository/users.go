@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"github.com/gocantodev/server/app/database"
-	"github.com/gocantodev/server/app/entity"
+	"github.com/gocantodev/api/app/database"
+	"github.com/gocantodev/api/app/entity"
 )
 
 type UsersRepository struct {

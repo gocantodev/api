@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/gocantodev/server/app/support"
+	"github.com/gocantodev/api/app/support"
 	"os"
 )
 

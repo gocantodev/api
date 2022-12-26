@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gocantodev/server/config"
+	"github.com/gocantodev/api/config"
 	log "github.com/sirupsen/logrus"
 	"net/http"
 	"os"

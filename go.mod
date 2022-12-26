@@ -1,4 +1,4 @@
-module github.com/gocantodev/server
+module github.com/gocantodev/api
 
 go 1.18
 
