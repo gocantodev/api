@@ -1,0 +1,15 @@
+app:
+    name: "Gus's Website API"
+    env: APP_ENV
+    log_level: APP_LOG_LEVEL
+
+database:
+    image_version: POSTGRES_DOCKER_VERSION
+    name: DB_NAME
+    user: DB_USER
+    password: DB_PASS
+    host: DB_HOST
+    url: POSTGRES_URL
+    max_lifetime: 7200
+    max_open_cons: 150
+    max_idle_cons: 50
