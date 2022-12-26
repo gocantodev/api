@@ -3,7 +3,6 @@ package config
 import (
 	"fmt"
 	"github.com/ilyakaznacheev/cleanenv"
-	log "github.com/sirupsen/logrus"
 	"os"
 )
 
@@ -12,15 +11,16 @@ func Make() (*Config, error) {
 	dir, err := os.Getwd()
 
 	if err != nil {
-		log.Fatal(err)
+		return config, err
 	}
 
-	fmt.Println(dir)
+	file := dir + "/config.yml"
+	fmt.Printf("Reading configuration from: %s\n", file)
 
 	err = cleanenv.ReadConfig(dir+"/config.yml", config)
 
 	if err != nil {
-		return nil, fmt.Errorf("config error: %w", err)
+		return nil, fmt.Errorf("error reading the given configuration file %s config error: %w", file, err)
 	}
 
 	err = cleanenv.ReadEnv(config)
