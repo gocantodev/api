@@ -1,4 +1,4 @@
-.PHONY: gocanto\:server
+.PHONY: gocanto\:api
 
 include .env
 
@@ -8,7 +8,7 @@ DB_MIGRATIONS_PATH = database/migrations
 
 run\:api:
 	cd cmd/api && go mod tidy && go mod download && \
-	CGO_ENABLED=0 go run -tags api github.com/gocantodev/server/cmd/api
+	CGO_ENABLED=0 go run -tags api github.com/gocantodev/api/cmd/api
 
 api\:build:
 	docker compose -f docker-compose.yml build
