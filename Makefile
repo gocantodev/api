@@ -10,23 +10,20 @@ run\:api:
 	cd cmd/api && go mod tidy && go mod download && \
 	CGO_ENABLED=0 go run -tags api github.com/gocantodev/api/cmd/api
 
+api\:up:
+	docker compose up nginx
+
 api\:build:
-	docker compose -f docker-compose.yml build
+	docker compose up nginx --build
 
-api\:up:
-	docker compose -f docker-compose.yml up
-
-api\:fresh:
-	make api\:build
-	make api\:up
-
-api\:up:
-	docker compose up --wait
+api\:up\:fresh:
+	make api\:prune && \
+	docker compose up nginx --build
 
 api\:down:
 	docker compose down
 
-api\:prune:
+docker\:prune:
 	docker compose down --remove-orphans
 	docker container prune -f
 	docker image prune -f

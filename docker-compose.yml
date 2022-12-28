@@ -10,6 +10,7 @@ volumes:
 
 services:
     postgres:
+        container_name: gocanto-db
         image: "postgres:${POSTGRES_DOCKER_VERSION}"
         restart: always
         env_file:
@@ -37,7 +38,7 @@ services:
             start_period: 10s
 
     api:
-        image: gocanto-api
+        container_name: gocanto-api
         restart: "always"
         build:
             context: .
@@ -56,4 +57,16 @@ services:
             options:
                 max-file: 20
                 max-size: 10M
+
+    nginx:
+        container_name: gocanto-proxy
+        image: nginx:latest
+        depends_on:
+            - api
+        volumes:
+            - ./docker/nginx/proxy.conf:/etc/nginx/nginx.conf:ro
+        ports:
+            - "80:80"
+        networks:
+            - gocanto
 
