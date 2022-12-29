@@ -10,17 +10,17 @@ run\:api:
 	cd cmd/api && go mod tidy && go mod download && \
 	CGO_ENABLED=0 go run -tags api github.com/gocantodev/api/cmd/api
 
-api\:up:
+up:
 	docker compose up nginx
 
-api\:build:
+build:
 	docker compose up nginx --build
 
-api\:up\:fresh:
-	make api\:prune && \
+build\:fresh:
+	make docker\:prune && \
 	docker compose up nginx --build
 
-api\:down:
+down:
 	docker compose down
 
 docker\:prune:
@@ -31,8 +31,8 @@ docker\:prune:
 	docker network prune -f
 
 db\:reset:
-	make api\:prune
-	make api\:up
+	make docker\:prune
+	make up
 	@rm -rf $(APP_PATH)/database/data/*
 
 db\:migrate\:up:
