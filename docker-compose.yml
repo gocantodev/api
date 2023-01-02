@@ -64,7 +64,6 @@ services:
         depends_on:
             - api
         volumes:
-            - ./docker/nginx/hosts:/etc/hosts
             - ./docker/nginx/proxy.conf:/etc/nginx/nginx.conf:ro
         ports:
             - "80:80"
